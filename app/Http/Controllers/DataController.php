@@ -40,12 +40,11 @@ class DataController extends Controller
      */
     public function show(Data $data, $id = 0)
     {
-        $data1 = DB::table('data')
-            ->where('id', '=', $id)->first();
-        if (is_null($data1)){
+        $record = Data::find($id);
+        if (is_null($record)){
             return view('data.error', ['id' => $id,]);
         }
-        return view('data.show', ['data' => $data1->message,]);
+        return view('data.show', ['data' => $record->message,]);
 
 
     }
