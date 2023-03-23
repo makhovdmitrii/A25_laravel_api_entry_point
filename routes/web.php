@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::prefix('data')->group(function () {
-    Route::get('/', [DataController::class, 'show']);
+    Route::get('/', [DataController::class, 'show'])->middleware('auth.basic');
     Route::get('/{id}', [DataController::class, 'show'])
-        ->where('id', '[0-9]+');
+        ->where('id', '[0-9]+')->middleware('auth.basic');
 });

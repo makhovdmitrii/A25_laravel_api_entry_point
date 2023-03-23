@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\data;
-use App\Models\Post;
+use App\Models\Data;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DataController extends Controller
 {
@@ -35,18 +35,25 @@ class DataController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\data  $data
+     * @param  \App\Models\Data  $data
      * @return \Illuminate\Http\Response
      */
-    public function show(data $data, $id = 0)
+    public function show(Data $data, $id = 0)
     {
-        return view('data.show', ['data' => $id,]);
+        $data1 = DB::table('data')
+            ->where('id', '=', $id)->first();
+        if (is_null($data1)){
+            return view('data.error', ['id' => $id,]);
+        }
+        return view('data.show', ['data' => $data1->message,]);
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(data $data)
+    public function edit(Data $data)
     {
         //
     }
@@ -54,7 +61,7 @@ class DataController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, data $data)
+    public function update(Request $request, Data $data)
     {
         //
     }
@@ -62,7 +69,7 @@ class DataController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(data $data)
+    public function destroy(Data $data)
     {
         //
     }
