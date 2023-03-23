@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::prefix('data')->group(function () {
+    Route::get('/', [DataController::class, 'show']);
+    Route::get('/{id}', [DataController::class, 'show'])
+        ->where('id', '[0-9]+');
 });
